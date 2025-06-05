@@ -41,4 +41,50 @@ ObtenerRegistros();
 //Proceso para agregar registros
 const modal = document.getElementById("mdAgregar"); //Cuadro de dialogo
 const btnAgregar = document.getElementById("btnAgregar"); //Boton para abrir dialogo
-const btnCerrar = document.getElementById("close"); //Boton para cerrar el dialogo
+const btnCerrar = document.getElementById("btnCerrarModal"); //Boton para cerrar dialogo
+
+btnAgregar.addEventListener("click", () => {
+    modal.showModal();//Abre el modal cando se le hace click a btnAgregar
+})
+
+btnCerrar.addEventListener("click", () => {
+    modal.close(); //Cerrar el modal
+})
+
+
+//Agregar un nuevo integrante desde el formulario
+document.getElementById("frmAgregar").addEventListener("submit", async e => {
+    e.preventDefault(); //evita que los datos se envien por defecto
+
+    //Capturar los valores del formulario
+    const Nombre = document.getElementById("txtNombre").value.trim();
+    const Apellido = document.getElementById("txtApellido").value.trim();
+    const Correo = document.getElementById("txtEmail").value.trim();
+
+    if(!Nombre || !Apellido || !Correo){
+        alert("Complete todos los campos");
+        return; //Evita que el codigo sesiga ejecutando
+    }
+
+    //Llamar a la API para enviar datos
+    const respuesta = await fetch(API_URL, {
+        method: "POST",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({Nombre,Apellido,Correo})
+    });
+
+    if(respuesta.ok){
+        alert("El registro fue agregado correctamente");
+
+        //Limpiar el formulario
+        document.getElementById("frmAgregar").reset();
+
+        //Cerrar el modal (dialog)
+        modal.close
+
+        ObtenerRegistros();
+    }
+    else{
+        alert("Hubo un error al guardar el registro");
+    }
+});
