@@ -1,0 +1,22 @@
+.add-button{
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    background-color: rgb(35, 170, 130);
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001; /* Para que el boton siempre quede encima del resto de conenido */
+    transition: transform 0.4s;
+}
+
+.add-button:hover{
+    transform: scale(1.2);  /* Crecimiento del boton */
+}
+
+.tabla-scroll{
+    overflow-x: auto;
+}
