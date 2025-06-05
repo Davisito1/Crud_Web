@@ -23,9 +23,9 @@ function MostrarRegistros(datos){
         tabla.innerHTML += `
         <tr>
             <td>${persona.id}</td>
-            <td>${persona.nombre}</td>
-            <td>${persona.apellido}</td>
-            <td>${persona.correo}</td>
+            <td>${persona.Nombre}</td>
+            <td>${persona.Apellido}</td>
+            <td>${persona.Correo}</td>
             <td>
                 <button>Editar</button>
                 <button>Eliminar</button>
@@ -36,3 +36,9 @@ function MostrarRegistros(datos){
 }
 
 ObtenerRegistros();
+
+
+//Proceso para agregar registros
+const modal = document.getElementById("mdAgregar"); //Cuadro de dialogo
+const btnAgregar = document.getElementById("btnAgregar"); //Boton para abrir dialogo
+const btnCerrar = document.getElementById("close"); //Boton para cerrar el dialogo
