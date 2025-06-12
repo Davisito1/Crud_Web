@@ -1,7 +1,7 @@
 //Direccion del EndPoint generado en Retool
 const API_URL = "https://api-generator.retool.com/Op9ikQ/integrantes";
 
-//Funcion que llama a la API y realia una solicitud GET. Obtiene un JSON
+//Funcion que llama a la API y realiza una solicitud GET. Obtiene un JSON
 async function ObtenerRegistros(){
     //Hacemos GET al servidor y obtenemos su respuesta (response)
     const respuesta = await fetch(API_URL);
@@ -27,7 +27,7 @@ function MostrarRegistros(datos){
             <td>${persona.Apellido}</td>
             <td>${persona.Correo}</td>
             <td>
-                <button>Editar</button>
+                <button onclick="AbrirModalEditar('${persona.id}', '${persona.Nombre}', '${persona.Apellido}', '${persona.Correo}')">Editar</button>
                 <button onclick="EliminarRegistro(${persona.id})">Eliminar</button>
             </td>
         </tr>
@@ -105,3 +105,35 @@ async function EliminarRegistro(id){
     }
 }
 
+
+//Funcion para editar registros
+const modalEditar = document.getElementById("mdEditar");
+const btnCerrarEditar = document.getElementById("btnCerrarEditar");
+
+btnCerrarEditar.addEventListener("click", () => {
+    modalEditar.close();
+})
+
+function AbrirModalEditar(id, nombre, apellido, correo){
+    //Agregamos los valores a los inputs
+    document.getElementById("txtIdEditar").value = id;
+    document.getElementById("txtNombreEditar").value = nombre;
+    document.getElementById("txtApellidoEditar").value = apellido;
+    document.getElementById("txtEmailEditar").value = correo;
+
+    //Modal se abre despues de agregar los valors de los input
+    modalEditar.showModal();
+}
+
+document.getElementById("frmEditar").addEventListener("submit", () => {
+    const nombre = document.getElementById("txtNombreEditar").value.trim();
+    const apellido = document.getElementById("txtApellidoEditar").value.trim();
+    const correo = document.getElementById("txtEmailEditar").value.trim();
+
+    if (!nombre || !apellido || !correo){
+        alert("Complete todos los campos");
+        return;
+    }
+
+    const respuesta = await fetch(API_URL/{id})
+})
