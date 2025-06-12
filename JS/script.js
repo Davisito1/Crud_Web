@@ -125,15 +125,33 @@ function AbrirModalEditar(id, nombre, apellido, correo){
     modalEditar.showModal();
 }
 
-document.getElementById("frmEditar").addEventListener("submit", () => {
-    const nombre = document.getElementById("txtNombreEditar").value.trim();
-    const apellido = document.getElementById("txtApellidoEditar").value.trim();
-    const correo = document.getElementById("txtEmailEditar").value.trim();
+document.getElementById("frmEditar").addEventListener("submit", async e => {
+    e.preventDefault(); //Evita que el formulario se envie de golpe
 
-    if (!nombre || !apellido || !correo){
+    const id = document.getElementById("txtIdEditar").value;
+    const Nombre = document.getElementById("txtNombreEditar").value.trim();
+    const Apellido = document.getElementById("txtApellidoEditar").value.trim();
+    const Correo = document.getElementById("txtEmailEditar").value.trim();
+
+    if (!id || !Nombre || !Apellido || !Correo){
         alert("Complete todos los campos");
         return;
     }
 
-    const respuesta = await fetch(API_URL/{id})
+    const respuesta = await fetch(`${API_URL}/${id}`, {
+        method: "PUT",
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({Nombre,Apellido,Correo})
+    })
+
+    if(respuesta.ok){
+        alert("Registro actualizado con exito");
+        document.getElementById("frmEditar").reset();
+        modalEditar.close();
+        
+        ObtenerRegistros();
+    }
+    else{
+        alert("Hubo un error al actualizar el registro");
+    }
 })
